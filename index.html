@@ -68,7 +68,7 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helveti
 .max-w-sm{max-width:24rem}
 .mx-4{margin-left:1rem;margin-right:1rem}
 .my-2{margin-top:.5rem;margin-bottom:.5rem}
-.h-1p5{height:.375rem}.h-2{height:.5rem}.h-8{height:2rem}.h-10{height:2.5rem}.h-full{height:100%}
+.h-2{height:.5rem}.h-8{height:2rem}.h-10{height:2.5rem}.h-full{height:100%}
 .rotate-12{transform:rotate(12deg)}
 .opacity-20{opacity:.2}.opacity-50{opacity:.5}.opacity-60{opacity:.6}.opacity-70{opacity:.7}.opacity-90{opacity:.9}
 .shadow{box-shadow:0 1px 3px rgba(0,0,0,.1)}
@@ -104,7 +104,7 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helveti
 .text-center{text-align:center}
 .text-left{text-align:left}
 .leading-relaxed{line-height:1.625}
-.text-stone-300{color:#d6d3d1}.text-stone-400{color:#a8a29e}.text-stone-500{color:#78716c}.text-stone-600{color:#57534e}.text-stone-700{color:#44403c}.text-stone-800{color:#292524}.text-stone-200{color:#e7e5e4}.text-stone-100{color:#f5f5f4}
+.text-stone-300{color:#d6d3d1}.text-stone-400{color:#a8a29e}.text-stone-500{color:#78716c}.text-stone-600{color:#57534e}.text-stone-700{color:#44403c}.text-stone-800{color:#292524}
 .bg-stone-50{background:#fafaf9}
 .bg-stone-100{background:#f5f5f4}
 .bg-stone-300{background:#d6d3d1}
@@ -233,8 +233,8 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helveti
 <div class="flex flex-col items-center p-3 bg-stone-50 opacity-20 border rounded-xl">
 <span id="timeDisp" class="st text-2xl font-extrabold tracking-widest" style="color:var(--dark)">25:00</span>
 <div class="flex gap-1p5 mt-1.5">
-<button id="btnTimer" onclick="toggleTimer()" class="px-4 py-1 text-xs font-bold rounded text-white btn" style="background:var(--primary)">Mulai</button>
-<button onclick="resetTimer()" class="px-3 py-1 text-xs font-semibold rounded bg-stone-100 text-stone-700 border btn">Reset</button>
+<button id="btnTimer" onclick="toggleTimer()" class="px-4 py-1 text-xs font-bold rounded text-white btn" style="background:var(--primary)" aria-label="Mulai atau jeda timer fokus">Mulai</button>
+<button onclick="resetTimer()" class="px-3 py-1 text-xs font-semibold rounded bg-stone-100 text-stone-700 border btn" aria-label="Reset timer fokus">Reset</button>
 </div>
 </div>
 </section>
@@ -285,7 +285,8 @@ function renderLib(){
     el.style.borderColor=act?'var(--primary)':'var(--border)';
     if(act)el.style.color='var(--dark)';
     el.onclick=e=>{if(!e.target.closest('.xd'))selectBook(b.id)};
-    el.innerHTML=`<div class="fc truncate pr-2"><span class="truncate">${escHtml(b.title)}</span><span class="text-xs opacity-60">${escHtml(b.author)}</span></div><div class="flex items-center gap-1"><span class="text-xs px-1 bg-white opacity-70 rounded">${pct}%</span><button class="xd text-stone-400 font-bold" onclick="delBook(${b.id})">&times;</button></div>`;
+    el.innerHTML=`<div class="fc truncate pr-2"><span class="truncate">${escHtml(b.title)}</span><span class="text-xs opacity-60">${escHtml(b.author)}</span></div><div class="flex items-center gap-1"><span class="text-xs px-1 bg-white opacity-70 rounded">${pct}%</span><button class="xd text-stone-400 font-bold" aria-label="Hapus buku">&times;</button></div>`;
+    el.querySelector('.xd').addEventListener('click',e=>{e.stopPropagation();delBook(b.id);});
     c.appendChild(el);
   });
   const s=$('bookSel');s.innerHTML='';
